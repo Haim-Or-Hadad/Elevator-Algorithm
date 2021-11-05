@@ -14,3 +14,20 @@ we wiil want
 2.that the algoritem do as mush as possible of calls in every moment .
 3.that one person not wait a long time in relation to other person .
 4.if all the elevators will work and this good for the algoritem it's excellent .
+ Iמ offine algoritem we start to perform the calls after we get all of them.
+ Our algorithm:
+ * some define - f=floors in the building.
+                 ll=list of calls (for example).
+                 el=number of elevators.
+ -if we have one elevators so:
+                      we check if there is up call and we searce the close up call.
+                      we take all the up calls and if there is in our stop people that want to go down we take them.
+                      after we finish the up calls we check if there is down call above us .
+                      if there is down call we go up and take this call.
+                      we do this until we don't have a down call above us .
+                      now we take all the poeple that want to go down to there destination.
+ -else :if we have two or more elevators :
+                      first of all we count the number of down and up calls separately.
+                      if both of then equal Approximately , we send *el*1/2 (half of elevators) to the tallest calls for down ,and half of them to lowest calls for up .
+                      after that , we will do same actions like the one's elevator algoritem.
+                      we send the closest elevators that in the same path of the call until we finish the list of calls .
