@@ -26,6 +26,3 @@ class Elevator:
         print(self._currfloor)
         print(self._nextfloor)
         return "--------------"
-
-    def goto(self, i):
-        self._nextfloor = i

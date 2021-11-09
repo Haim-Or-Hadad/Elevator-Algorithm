@@ -23,7 +23,3 @@ for x in range(len(Elist)):
 for x in range(len(Elevator_list)):
     print(Elevator_list[x].printelev())
 print("--------------------------------------------------------")
-
-Elevator_list[1].goto(5)
-for x in range(len(Elevator_list)):
-    print(Elevator_list[x].printelev())
