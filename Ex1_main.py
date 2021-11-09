@@ -14,7 +14,7 @@ for x in range(len(Elist)):
     Elevator_list.append(Elevator(Elist, x))
 print("-------------------------------------------------------")
 for ilan in range(len(call_list)):
-    x=Calls.allocate(call_list[ilan][2],call_list[ilan][3])
+    x = Calls.allocate(call_list[ilan][2], call_list[ilan][3])
     call_list[ilan][5] = x
 
 print(call_list)

@@ -1,6 +1,11 @@
 import csv
 
-
+class Calls:
+    def from_csvTolist(csvFile):
+        with open(csvFile) as csv_file:
+            csv_reader = csv.reader(csv_file)
+            call_list = list(csv_reader)
+        return call_list
 class Calls:
 
     def from_csvTolist(csvFile):
