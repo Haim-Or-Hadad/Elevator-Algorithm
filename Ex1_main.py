@@ -22,4 +22,4 @@ for x in range(len(Elist)):
     Elevator_list.append(Elevator(Elist, x))
 for x in range(len(Elevator_list)):
     print(Elevator_list[x].printelev())
-print("--------------------------------------------------------")
+print("-------------------------------------------------------")
