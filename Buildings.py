@@ -19,8 +19,7 @@ class Buildings:
     def __repr__(self):
         return f'<Buildings {self._minFloor}>'
 
-    def getElevator(self):
-        return self._elevators
+
 
 
 # # with open('Ex1_Buildings/B1.json') as f:

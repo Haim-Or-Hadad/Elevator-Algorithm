@@ -12,8 +12,15 @@ class Elevator:
         self._closeTime = list[i]['_closeTime']
         self._openTime = list[i]['_openTime']
         self._startTime = list[i]['_startTime']
+        self._stopTime = list[i]['_stopTime']
         self._currfloor = list[i]['_minFloor']
-        self.numberofcalls = 0;
+        self.numberofcalls = 0
+
+    def getMinFloor(self):
+        return int(self._minFloor)
+
+    def getMaxFloor(self):
+        return int(self._maxFloor)
 
     def __str__(self):
         return f"Elevator: _id:{self._id} , _speed: {self._speed} , _minFloor:{self._minFloor} , _maxFloor:{self._maxFloor} , _closeTime:{self._closeTime} , _openTime:{self._openTime} , _startTime:{self._startTime} \n"

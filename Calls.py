@@ -7,7 +7,7 @@ def speedtoelev(elevator_list: list):
     select = 0
     for x in range(len(elevator_list)):
         elev = elevator_list[x]
-        if(elev.numberofcalls==0):
+        if (elev.numberofcalls == 0):
             speed = ((elev.numberofcalls + 1) / (elev._speed + elev._closeTime + elev._openTime))
         else:
             speed = ((elev.numberofcalls) / (elev._speed + elev._closeTime + elev._openTime))
@@ -25,13 +25,22 @@ class Calls:
             call_list = list(csv_reader)
         return call_list
 
-    def allocate(src: int, dest: int, elevator_list: list):
+    def allocate(call_list, elevator_list: list):
+        src = int(call_list[2])
+        dest = int(call_list[3])
+        minfloor = elevator_list[0].getMinFloor()
+        maxfloor = elevator_list[0].getMaxFloor()
+        if src > maxfloor or src < minfloor or dest > maxfloor or dest < minfloor:
+            raise Exception("Elevator Calls are not in bullding floor range")
         if src < dest:  # Up
-            return speedtoelev(elevator_list)
-        else:
-            return speedtoelev(elevator_list)
+            call_list[5] = speedtoelev(elevator_list)
+            call_list[4] = 1
 
-    def write_tofile(rows):
-        with open('Ex1_Output/Ex1_Calls_case_1_b.csv', 'w', encoding='UTF8', newline='') as csv_file:
+        else:
+            call_list[5] = speedtoelev(elevator_list)
+            call_list[4] = -1
+
+    def write_tofile(rows, calllist):
+        with open(rows, 'w', encoding='UTF8', newline='') as csv_file:
             write = csv.writer(csv_file)
-            write.writerows(rows)
+            write.writerows(calllist)
