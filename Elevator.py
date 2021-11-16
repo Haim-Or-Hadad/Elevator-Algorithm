@@ -6,15 +6,15 @@ class Elevator:
 
     def __init__(self, list: list, i: int):
         self._id = list[i]['_id']
-        self._speed = list[i]['_speed']
-        self._minFloor = list[i]['_minFloor']
-        self._maxFloor = list[i]['_maxFloor']
-        self._closeTime = list[i]['_closeTime']
-        self._openTime = list[i]['_openTime']
-        self._startTime = list[i]['_startTime']
-        self._stopTime = list[i]['_stopTime']
-        self._currfloor = list[i]['_minFloor']
-        self.numberofcalls = 0
+        self._speed = float(list[i]['_speed'])
+        self._minFloor = int(list[i]['_minFloor'])
+        self._maxFloor = int(list[i]['_maxFloor'])
+        self._closeTime = float(list[i]['_closeTime'])
+        self._openTime = float(list[i]['_openTime'])
+        self._startTime = float(list[i]['_startTime'])
+        self._stopTime = float(list[i]['_stopTime'])
+        self.currfloor = 0
+        self.status = 0
 
     def getMinFloor(self):
         return int(self._minFloor)

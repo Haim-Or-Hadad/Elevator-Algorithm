@@ -5,7 +5,9 @@ from Elevator import *
 from Calls import Calls
 from ElevatorAlgo import ElevatorAlgo
 
-ElevatorAlgo('Ex1_Buildings/B1.json', 'Ex1_Calls/Calls_b.csv', 'out.csv')
+algo1 = ElevatorAlgo('Ex1_Buildings/B2.json', 'Ex1_Calls/Calls_a.csv', 'out.csv')
+algo1.allocate()
+algo1.write_tofile('Ex1_Output\Ex1_Calls_case_1_b.csv')
 
 # def takeSecond(elem):
 #     return elem[1]
