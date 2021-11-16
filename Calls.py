@@ -19,11 +19,27 @@ def speedtoelev(elevator_list: list):
 
 
 class Calls:
+    def __init__(self, time, src, dest, status, selected_elev):
+        self.time = time
+        self.src = src
+        self.dest = dest
+        self.status = status
+        self.selected_elev = selected_elev
+
     def from_csvTolist(csvFile):
         with open(csvFile) as csv_file:
             csv_reader = csv.reader(csv_file)
             call_list = list(csv_reader)
-        return call_list
+            calls_arr = []
+            for row in call_list:
+                newcall = Calls(float(row[1]),
+                                int(row[2]),
+                                int(row[3]),
+                                int(row[4]),
+                                int(row[5]))
+                calls_arr.append(newcall)
+
+        return calls_arr
 
     def allocate(call_list, elevator_list: list):
         src = int(call_list[2])
@@ -44,3 +60,9 @@ class Calls:
         with open(rows, 'w', encoding='UTF8', newline='') as csv_file:
             write = csv.writer(csv_file)
             write.writerows(calllist)
+
+    def __str__(self):
+        return f"Time: {self.time}, Src: {self.src} dest: {self._dest} allocated to {self.selected_elev}"
+
+    def __repr__(self):
+        return str(self)

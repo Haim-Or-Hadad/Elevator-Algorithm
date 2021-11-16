@@ -26,7 +26,7 @@ class Elevator:
         return f"Elevator: _id:{self._id} , _speed: {self._speed} , _minFloor:{self._minFloor} , _maxFloor:{self._maxFloor} , _closeTime:{self._closeTime} , _openTime:{self._openTime} , _startTime:{self._startTime} \n"
 
     def __repr__(self):
-        return  str(self)
+        return str(self)
 
     def __lt__(self, other):
         return self._speed >= other._speed
