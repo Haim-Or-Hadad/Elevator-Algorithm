@@ -1,4 +1,6 @@
 import json
+import queue
+
 from Buildings import Buildings
 
 
@@ -15,6 +17,7 @@ class Elevator:
         self._stopTime = float(list[i]['_stopTime'])
         self.currfloor = 0
         self.status = 0
+        self.dest = []
 
     def getMinFloor(self):
         return int(self._minFloor)

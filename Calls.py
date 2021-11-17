@@ -35,8 +35,10 @@ class Calls:
         return str(self)
 
     def write_tofile(call_list, output):
+        newcalls = []
+        for i in call_list:
+            tempArr = ["Elevator Call", i.time, i.src, i.dest, i.status, i.selected_elev]
+            newcalls.append(tempArr)
         with open(output, 'w', encoding='UTF8', newline='') as csv_file:
-            write = csv.writer(csv_file)
-            #for x in call_list:
-                #y = x
-            write.writerow(call_list)
+            write = csv.writer(csv_file, lineterminator='\n')
+            write.writerows(newcalls)
