@@ -9,19 +9,17 @@ from Calls import Calls
 
 class ElevatorAlgo:
     def __init__(self, building, calls, output):
-        b = Buildings.from_json(building)
-        Elist = (b['_elevators'])
+        b = Buildings.from_json(building)  #return building list
+        Elist = (b['_elevators'])   # return elevators list from specific building
         self.Elevator_list = []
-        for x in range(len(Elist)):
+        for x in range(len(Elist)): #deep copy of the elevators
             ele = Elevator(Elist, x)
-            self.Elevator_list.append(Elevator(Elist, x))
-        self.call_list = Calls.from_csvTolist(calls)
+            self.Elevator_list.append(ele)
+        self.call_list = Calls.from_csvTolist(calls) #return list of the calls
         self.elev_time_status = []
         for x in range(len(self.Elevator_list)):
             self.elev_time_status.append(0)
 
-    def write_tofile(self, output):
-        Calls.write_tofile(self.call_list, output)
 
     def allocate(self):
         for i in self.call_list:
@@ -54,8 +52,7 @@ class ElevatorAlgo:
             time_passed = self.elev_time_status[i]
             time_passed = abs(time_passed - call.time)
             self.elev_time_status[i] = call.time
-            self.elev_time_status[i] = call.time
-            if x.status == 1:
+            if x.status == 1: # if the elevator go up
                 curr_floor = x.currfloor
                 delay_time = x._startTime + x._openTime
                 elev_speed = x._speed
@@ -68,3 +65,6 @@ class ElevatorAlgo:
                 if (time_passed - delay_time) > 0:
                     x.currfloor = math.ceil(curr_floor - (time_passed - delay_time) * elev_speed)
         i += 1
+
+    def write_tofile(self, output):
+        Calls.write_tofile(self.call_list, output)

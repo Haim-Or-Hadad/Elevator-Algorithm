@@ -4,8 +4,9 @@ from Buildings import Buildings
 from Elevator import *
 from Calls import Calls
 from ElevatorAlgo import ElevatorAlgo
-
-algo1 = ElevatorAlgo('Ex1_Buildings/B2.json', 'Ex1_Calls/Calls_a.csv', 'out.csv')
+#קובץ שינויים בזמנים
+#https://docs.google.com/spreadsheets/d/1NX_Lc0m9B4Oq4dq6bJPWMefnu866tttoPFz2NCJicxw/edit#gid=0
+algo1 = ElevatorAlgo('Ex1_Buildings/B5.json', 'Ex1_Calls/Calls_c.csv', 'out.csv')
 algo1.allocate()
 algo1.write_tofile('Ex1_Output\Ex1_Calls_case_1_b.csv')
 
