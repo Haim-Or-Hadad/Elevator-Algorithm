@@ -27,7 +27,7 @@ class ElevatorAlgo:
     def allocate(self):
         for i in self.call_list:
             self.update_position(i)
-            min = self.time_to(self.Elevator_list[0], i.src) + len(self.Elevator_list[0].dest)
+            min = 9999999999999
             sel_elev = 0
             num = 0
             for e in self.Elevator_list:
@@ -41,6 +41,9 @@ class ElevatorAlgo:
                         if self.time_to(e, i.src) + len(e.dest) < min:
                             min = self.time_to(e, i.src)
                             sel_elev = num
+                print("elevator:" , num)
+                print(e.currfloor)
+
                 num += 1
 
             i.selected_elev = sel_elev
@@ -62,14 +65,15 @@ class ElevatorAlgo:
             delay_time = x._startTime + x._openTime
             elev_speed = x._speed
             if len(x.dest) > 0:
-                timeneed = (abs(x.dest[0] - x.currfloor) / elev_speed) + delay_time
-            if x.status == 1:
-                self.update_up(x, time_passed, timeneed)
+                timeneed = (abs(x.dest[0] - curr_floor) / elev_speed) + delay_time
+                if x.status == 1:
+                    self.update_up(x, time_passed, timeneed)
 
-            elif x.status == -1:
-                self.update_down(x, time_passed, timeneed)
+                elif x.status == -1:
+                    self.update_down(x, time_passed, timeneed)
 
-        i += 1
+            i += 1
+
 
     # Function the calculate the time for the elevator current floor to the dest floor
     def time_to(self, elevator: Elevator, dest: int):
@@ -81,13 +85,18 @@ class ElevatorAlgo:
         delay_time = elev._startTime + elev._openTime
         elev_speed = elev._speed
         timeleft = total_time_since - time_need4call
+        dest = elev.dest[0]
         if timeleft > 0:  # if there's more time left then we need then send the elevator with the time she need
             check = math.floor(curr_floor + (time_need4call - delay_time) * elev_speed)
-            elev.currfloor = math.ceil(curr_floor + (time_need4call - delay_time) * elev_speed)
+            elev.currfloor = math.ceil(curr_floor + abs(time_need4call - delay_time) * elev_speed)
+            if elev.currfloor >= dest:
+                elev.currfloor=dest
             timeleft = total_time_since - time_need4call  # update time
         else:  # else the elevator need more time so send her with all the time
-            check = elev.currfloor = math.ceil(curr_floor + (total_time_since - delay_time) * elev_speed)
-            elev.currfloor = math.floor(curr_floor + (total_time_since - delay_time) * elev_speed)
+            check = elev.currfloor = math.ceil(curr_floor + abs(total_time_since - delay_time) * elev_speed)
+            elev.currfloor = math.floor(curr_floor + abs(total_time_since - delay_time) * elev_speed)
+            if elev.currfloor >= dest:
+                elev.currfloor = dest
             timeleft = time_need4call - total_time_since  # update time
         check12 = elev.dest[0]
         if elev.currfloor >= elev.dest[0]:  # if the elevator passed the closest floor she need to go
@@ -103,38 +112,58 @@ class ElevatorAlgo:
                     # the elevator will get closer to the next floor in the time that left
                     if elev.dest[0] > elev.currfloor:  # test formula to calc the floor
                         # if the elevator need to go up
-                        elev.currfloor = math.ceil(curr_floor + (timeleft - delay_time) * elev_speed)
+                        elev.currfloor = math.ceil(curr_floor + abs(timeleft - delay_time) * elev_speed)
+                        if elev.currfloor >= elev.dest[0]:
+                            elev.currfloor = elev.dest[0]
+                            elev.dest.pop(0)
                     else:
                         # if the elevator need to go down
-                        elev.currfloor = math.floor(curr_floor - (timeleft - delay_time) * elev_speed)
+                        elev.currfloor = math.floor(curr_floor - (abs(timeleft - delay_time)) * elev_speed)
+                        if elev.currfloor <= elev.dest[0]:
+                            elev.currfloor = elev.dest[0]
+                            elev.dest.pop(0)
+
+
 
     def update_down(self, elev: Elevator, total_time_since: int, time_need4call):
         curr_floor = elev.currfloor
         delay_time = elev._startTime + elev._openTime
         elev_speed = elev._speed
         timeleft = total_time_since - time_need4call
-        if timeleft > 0:  # if there's more time left then we need then send the elevator with the time she need
-            check = math.floor(curr_floor - (time_need4call - delay_time) * elev_speed)
-            elev.currfloor = math.floor(curr_floor - (time_need4call - delay_time) * elev_speed)
-            timeleft = total_time_since - time_need4call
-        else:  # else the elevator need more time so send her with all the time
-            check = math.floor(curr_floor - (total_time_since - delay_time) * elev_speed)
-            elev.currfloor = math.ceil(curr_floor - (total_time_since - delay_time) * elev_speed)
-            timeleft = time_need4call - total_time_since
-        if elev.currfloor <= elev.dest[0]:  # if the elevator passed the closest floor she need to go
-            elev.dest.pop(0)  # delete the floor that she passed
-            if len(elev.dest) == 0:  # if theres no more calls for the elevator then make her status 0
-                elev.status = 0
-            else:
-                if elev.dest[0] > elev.currfloor:  # else make her status according to her next call
-                    elev.status = 1
+        if total_time_since > 0:
+            if timeleft > 0:  # if there's more time left then we need then send the elevator with the time she need
+                check = math.floor(curr_floor - abs(time_need4call - delay_time) * elev_speed)
+                elev.currfloor = math.floor(curr_floor - (abs(time_need4call - delay_time)) * elev_speed)
+                if elev.currfloor <= elev.dest[0]:
+                    elev.currfloor = elev.dest[0]
+                timeleft = total_time_since - time_need4call
+            else:  # else the elevator need more time so send her with all the time
+                check = math.floor(curr_floor - (abs(total_time_since - delay_time)) * elev_speed)
+                elev.currfloor = math.ceil(curr_floor - (abs(total_time_since - delay_time)) * elev_speed)
+                if elev.currfloor <= elev.dest[0]:
+                    elev.currfloor = elev.dest[0]
+                timeleft = time_need4call - total_time_since
+            if elev.currfloor <= elev.dest[0]:  # if the elevator passed the closest floor she need to go
+                elev.dest.pop(0)  # delete the floor that she passed
+                if len(elev.dest) == 0:  # if theres no more calls for the elevator then make her status 0
+                    elev.status = 0
                 else:
-                    elev.status = -1
-                if timeleft > 0:  # if theres time left after she got to her closest call then
-                    # the elevator will get closer to the next floor in the time that left
-                    if elev.dest[0] > elev.currfloor:  # test formula to calc the floor
-                        # if the elevator need to go up
-                        elev.currfloor = math.ceil(curr_floor + (timeleft - delay_time) * elev_speed)
+                    if elev.dest[0] > elev.currfloor:  # else make her status according to her next call
+                        elev.status = 1
                     else:
-                        # if the elevator need to go down
-                        elev.currfloor = math.floor(curr_floor - (timeleft - delay_time) * elev_speed)
+                        elev.status = -1
+                    if timeleft > 0:  # if theres time left after she got to her closest call then
+                        # the elevator will get closer to the next floor in the time that left
+                        if elev.dest[0] > elev.currfloor:  # test formula to calc the floor
+                            # if the elevator need to go up
+                            elev.currfloor = math.ceil(curr_floor + abs(timeleft - delay_time) * elev_speed)
+                            if elev.currfloor >= elev.dest[0]:
+                                elev.currfloor = elev.dest[0]
+                                elev.dest.pop(0)
+                        else:
+                            # if the elevator need to go down
+                            elev.currfloor = math.floor(curr_floor - (abs(timeleft - delay_time)) * elev_speed)
+                            if elev.currfloor <= elev.dest[0]:
+                                elev.currfloor = elev.dest[0]
+                                elev.dest.pop(0)
+
