@@ -19,6 +19,7 @@ class Elevator:
         self.status = 0
         self.dest = []
 
+
     def getMinFloor(self):
         return int(self._minFloor)
 
