@@ -31,3 +31,6 @@ we wil want
  * if both of then equal Approximately , we send *el*1/2 (half of elevators) to the tallest calls for down ,and half of them to lowest calls for up .
  * after that , we will do same actions like the one's elevator algoritem.
  * we send the closest elevators that in the same path of the call until we finish the list of calls .
+
+
+![image](https://user-images.githubusercontent.com/93033782/142488509-7c506edf-ade8-4f65-b2f2-cde6cb69d74d.png)
