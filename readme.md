@@ -36,4 +36,4 @@ Our main targets in this algorithm: <br />
  * We send the closest elevators in the same path as the call until we finish all the call in the list .
 
 
-![image](https://user-images.githubusercontent.com/93033782/142488509-7c506edf-ade8-4f65-b2f2-cde6cb69d74d.png)
+![image](https://user-images.githubusercontent.com/74299935/142682760-c202c7da-f100-4a30-9d70-fd63440f2fff.jpeg)
