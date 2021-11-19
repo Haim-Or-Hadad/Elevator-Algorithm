@@ -2,7 +2,7 @@
 ## Elevator Problem
 ### Understanding and planning of the problem: 
 In this task we received 2 folders that include a json elevator call list and json building file that include the building details and the elevators details. <br />
-We need  and find an elevator for any call in the optimal way , before we begin to write the algorithm , we want to present and explain the elevator problem .
+We need to find an elevator for any call in the optimal way , before we begin to write the algorithm , we want to present and explain the elevator problem .
 ### There are some problems:
 **1.** The calls list includes calls of people that want to go down , and calls of people that want to go up. <br />
 **2.** The building may have many floors which can affect the waiting time of each call.<br />
