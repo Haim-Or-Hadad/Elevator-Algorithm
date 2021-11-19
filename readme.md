@@ -1,36 +1,39 @@
 # Ex1_py
 ## Elevator Problem
 ### Understanding and planning of the problem: 
-In this task we need to get a calls list and find elevator for any call in the optimal way , before we will begin to write the algoritem , we want to present and explain the elevator problem .
+In this task we received 2 folders that include a json elevator call list and json building file that include the building details and the elevators details. <br />
+We need  and find an elevator for any call in the optimal way , before we begin to write the algorithm , we want to present and explain the elevator problem .
 ### There are some problems:
-1.The calls list includes calls of people that want to go down , and calls of people that want to go up.
-2.The building may have a many floors.
-3.there are maybe many elevators and we need to use them.
-4.every elevator has a different speed and "close/ope door time ".
-5.we need to fill the calls in the optimal way , but we need to understand what is it the optimal way .
+1.The calls list includes calls of people that want to go down , and calls of people that want to go up. <br />
+2.The building may have many floors which can affect the waiting time of each call.<br />
+3.Useage and supervision of many elevators in some cases. <br />
+4.every elevator has a different speed and "delay time". <br />
+5.We need to fill the calls in the optimal way , but we need to understand what is it the optimal way according to the problems above.
 ### we will write some example and suggestions that can improve and take us to the optimal way do this calls list:
-we wil want 
-1.every person will wait the little time that we can .
-2.that the algoritem do as mush as possible of calls in every moment .
-3.that one person not wait a long time in relation to other person .
-4.if all the elevators will work and this good for the algoritem it's excellent .
+Our main targets in this algorithm: <br />
+1.Every person waiting time will be minimal . <br />
+2.Maximum handling of calls every moment . <br />
+3.All calls waiting time will be equal with no relation to the call type. <br />
+4.Maximum usage of all the elevators for minimal number of uncompleted calls. <br />
  In offine algoritem we start to perform the calls after we get all of them.
  # Our algorithm:
  * some define - f=floors in the building.
                  ll=list of calls (for example).
                  el=number of elevators.
  ### if we have one elevators so:
- * we check if there is up call and we searce the close up call.
- * we take all the up calls and if there is in our stop people that want to go down we take them.
- * after we finish the up calls we check if there is down call above us .
- * if there is down call we go up and take this call.
- * we do this until we don't have a down call above us .
- * now we take all the poeple that want to go down to there destination.
+ * We check if there is calls to go "up" and we assign the closest up call to the elevator.
+ * We take all the calls "up" and if there people in our stops that want to go down we take them.
+ * After we finish the calls "up" we check if there is down call above us .
+ * If there is a call down we go up and take the call.
+ * We do this until we don't have a calls to go down above us .
+ * Now we take all the poeple that want to go down to their destination.
  ### else :if we have two or more elevators :
- * first of all we count the number of down and up calls separately.
- * if both of then equal Approximately , we send *el*1/2 (half of elevators) to the tallest calls for down ,and half of them to lowest calls for up .
- * after that , we will do same actions like the one's elevator algoritem.
- * we send the closest elevators that in the same path of the call until we finish the list of calls .
+ * First of all we count the number of calls down and calls up separately.
+ * Each elevator update her status according to the direction she's heading.(1 going up, -1 going down , 0 idle)
+ * If both of then equal approximately , we send *el*1/2 (half of elevators) to highest down calls ,and half of them to lowest up calls .
+ * After that , we will do same actions like the one's elevator algoritem.
+ * Each call have a status 1 for up -1 for down.
+ * We send the closest elevators in the same path as the call until we finish all the call in the list .
 
 
 ![image](https://user-images.githubusercontent.com/93033782/142488509-7c506edf-ade8-4f65-b2f2-cde6cb69d74d.png)
